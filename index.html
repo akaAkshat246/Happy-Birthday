@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Prapti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      min-height:100vh;
+      font-family:'Poppins',sans-serif;
+      color:#fff5e6;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    /* Fullscreen background video */
+    .bg-video{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-2;
+    }
+
+    /* Dark gradient overlay on top of video (for text readability) */
+    .bg-overlay{
+      position:fixed;
+      inset:0;
+      background-size:200% 200%;
+      animation:gradientShift 15s ease infinite;
+      opacity:0.85;           /* adjust if you want video more/less visible */
+      z-index:-1;
+    }
+
+    @keyframes gradientShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .floating-emojis{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      pointer-events:none;z-index:1;overflow:hidden;
+    }
+    .floating-emojis span{
+      position:absolute;bottom:-50px;font-size:30px;opacity:0;
+      animation:floatUp 8s linear infinite;user-select:none;
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0) translateX(0);opacity:0}
+      10%{opacity:0.6}
+      90%{opacity:0.6}
+      100%{transform:translateY(-100vh) translateX(20px);opacity:0}
+    }
+
+    .hero{
+      text-align:left;
+      padding:100px 20px 60px;
+      max-width:1100px;
+      margin:0 auto;
+      position:relative;
+      z-index:2; /* above emojis + overlay + video */
+    }
+    .hero h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.4rem,5vw,3rem);
+      margin-bottom:12px;
+      color:#ffd966;
+    }
+    .hero p{
+      font-size:1.05rem;
+      max-width:600px;
+      margin-bottom:30px;
+      line-height:1.6;
+    }
+
+    /* BOTTOM-RIGHT FIXED BUTTON (responsive) */
+    .next-btn{
+      display:inline-block;
+      padding:14px 36px;
+      background:linear-gradient(135deg,#ffd966 0%,#ffcf4d 100%);
+      color:#6b0f1a;
+      border-radius:50px;
+      font-weight:600;
+      font-size:1rem;
+      text-decoration:none;
+
+      position:fixed;
+      right:20px;          /* desktop right offset */
+      bottom:24px;         /* desktop bottom offset */
+      overflow:hidden;
+      transition:all .3s ease;
+      border:none;
+      cursor:pointer;
+      z-index:3;           /* emojis/video ke upar */
+    }
+    .next-btn::before{
+      content:'';
+      position:absolute;top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+      transition:left .5s;
+    }
+    .next-btn:hover::before{left:100%}
+    .next-btn:hover{transform:translateY(-2px);background-color:#ffcf4d}
+
+    @media(max-width:768px){
+      .hero{
+        padding:80px 18px 40px;
+        text-align:center;
+      }
+      .hero p{
+        margin-inline:auto;
+      }
+
+      .next-btn{
+        right:16px;       /* mobile pe thoda अंदर */
+        bottom:16px;
+        padding:12px 28px;
+        font-size:0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background video -->
+  <video class="bg-video" src="Background.mp4" autoplay muted loop playsinline></video>
+
+  <!-- Gradient overlay on top of video -->
+  <div class="bg-overlay"></div>
+
+  <!-- Floating emojis -->
+  <div class="floating-emojis"></div>
+
+
+  
+
+  <!-- Bottom-right fixed button -->
+  <a href="moments.html" class="next-btn">Continue ➝</a>
+
+  <script>
+    const emojis=["💖","💛","💝","✨","🦋","💕","💗","💓","💞","💟"];
+    const container=document.querySelector(".floating-emojis");
+    if(container){
+      function createEmoji(){
+        const span=document.createElement("span");
+        span.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+        span.style.left=Math.random()*100+"%";
+        const duration=6+Math.random()*4;
+        span.style.animationDuration=duration+"s";
+        span.style.animationDelay=Math.random()*2+"s";
+        span.style.fontSize=(20+Math.random()*15)+"px";
+        container.appendChild(span);
+        setTimeout(()=>span.remove(),duration*1000+2000);
+      }
+      for(let i=0;i<8;i++) setTimeout(createEmoji,i*500);
+      setInterval(createEmoji,1500);
+    }
+  </script>
+</body>
+</html>

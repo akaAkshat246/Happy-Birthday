@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Birthday Message 💌</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#6b0f1a 0%,#8b1a2a 50%,#6b0f1a 100%);
+      background-size:200% 200%;
+      animation:gradientShift 15s ease infinite;
+      color:#fff5e6;
+      overflow-x:hidden;
+      position:relative;
+    }
+    @keyframes gradientShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .floating-emojis{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      pointer-events:none;z-index:1;overflow:hidden;
+    }
+    .floating-emojis span{
+      position:absolute;bottom:-50px;font-size:30px;opacity:0;
+      animation:floatUp 8s linear infinite;user-select:none;
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0) translateX(0);opacity:0}
+      10%{opacity:0.6}
+      90%{opacity:0.6}
+      100%{transform:translateY(-100vh) translateX(20px);opacity:0}
+    }
+
+    .message-page{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:40px 20px;
+      text-align:center;
+      position:relative;
+      z-index:2;
+    }
+    .message-box{
+      max-width:800px;width:100%;
+      padding:40px;
+      background:rgba(255,255,255,.15);
+      backdrop-filter:blur(12px);
+      border-radius:30px;
+      box-shadow:0 20px 40px rgba(0,0,0,.4);
+    }
+    .message-heading{
+      font-family:'Playfair Display',serif;
+      font-size:2rem;
+      margin-bottom:30px;
+      color:#ffd966;
+    }
+    .message-paragraph{
+      font-size:1.05rem;
+      line-height:1.8;
+      margin-bottom:15px;
+    }
+    .hearts{font-size:1.8rem;margin-top:20px}
+    .return-btn{
+      margin-top:25px;
+      padding:12px 30px;
+      background:linear-gradient(135deg,#ffd966 0%,#ffcf4d 100%);
+      color:#6b0f1a;
+      border-radius:50px;
+      font-weight:600;
+      font-size:.95rem;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-block;
+    }
+    .return-btn:hover{background-color:#ffcf4d;transform:translateY(-2px)}
+
+    @media(max-width:768px){
+      .message-box{padding:30px 20px}
+      .message-heading{font-size:1.6rem}
+      .message-paragraph{font-size:.95rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-emojis"></div>
+
+  <section class="message-page">
+    <div class="message-box">
+      <h2 class="message-heading">My Little Birthday Message 💌</h2>
+      <p class="message-paragraph">
+        On your special day, all those tiny moments of you become my favorite movie.
+      </p>
+      <p class="message-paragraph">
+        Every laugh, every rant, every random photo — they are the chapters that make my life softer.
+      </p>
+      <p class="message-paragraph">
+        Thank you for being you, exactly the way you are, and letting me be a small part of your world.
+      </p>
+      <p class="message-paragraph">
+        Happy birthday, you beautiful human. You deserve every bit of love and magic today.
+      </p>
+
+      <div class="hearts">💛 💌 💛</div>
+
+      <!-- back to home -->
+      <a href="index.html" class="return-btn">Back to Home</a>
+    </div>
+  </section>
+
+  <script>
+    const emojis=["💖","💛","💝","✨","🦋","💕","💗","💓","💞","💟"];
+    const container=document.querySelector(".floating-emojis");
+    if(container){
+      function createEmoji(){
+        const span=document.createElement("span");
+        span.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+        span.style.left=Math.random()*100+"%";
+        const duration=6+Math.random()*4;
+        span.style.animationDuration=duration+"s";
+        span.style.animationDelay=Math.random()*2+"s";
+        span.style.fontSize=(20+Math.random()*15)+"px";
+        container.appendChild(span);
+        setTimeout(()=>span.remove(),duration*1000+2000);
+      }
+      for(let i=0;i<8;i++) setTimeout(createEmoji,i*500);
+      setInterval(createEmoji,1500);
+    }
+  </script>
+</body>
+</html>
